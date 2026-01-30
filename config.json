@@ -1,0 +1,9 @@
+{
+  "port": 8000,
+  "openai_base_url": "https://api.openai.com",
+  "api_key_override": null,
+  "log_dir": "./logs",
+  "max_memory_requests": 1000,
+  "log_request_bodies": true,
+  "log_response_bodies": true
+}

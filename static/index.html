@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Proxy</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>LLM Proxy</h1>
+        <div class="controls">
+            <a href="/help" class="help-link">Help</a>
+            <label class="auto-refresh">
+                <input type="checkbox" id="autoRefresh"> Auto-refresh
+            </label>
+            <button id="refreshBtn" class="btn">Refresh</button>
+        </div>
+    </header>
+    
+    <main>
+        <aside class="filters">
+            <h3>Filters</h3>
+            <div class="filter-group">
+                <label for="filterPath">Endpoint</label>
+                <input type="text" id="filterPath" placeholder="/v1/chat/completions">
+            </div>
+            <div class="filter-group">
+                <label for="filterModel">Model</label>
+                <input type="text" id="filterModel" placeholder="gpt-4o">
+            </div>
+            <div class="filter-group">
+                <label for="filterStatus">Status</label>
+                <select id="filterStatus">
+                    <option value="">All</option>
+                    <option value="success">Success</option>
+                    <option value="error">Error</option>
+                </select>
+            </div>
+            <button id="applyFilters" class="btn btn-small">Apply</button>
+            <button id="clearFilters" class="btn btn-small btn-secondary">Clear</button>
+        </aside>
+        
+        <section class="content">
+            <div class="request-list">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Method</th>
+                            <th>Path</th>
+                            <th>Model</th>
+                            <th>Status</th>
+                            <th>Duration</th>
+                            <th>Tokens</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requestsBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+                <div id="emptyState" class="empty-state">
+                    No requests yet. Make some API calls through the proxy!
+                </div>
+            </div>
+            
+            <div id="detailPanel" class="detail-panel hidden">
+                <div class="detail-header">
+                    <h2 id="detailTitle">Request Details</h2>
+                    <button id="closeDetail" class="btn-close">&times;</button>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-section">
+                        <h3>
+                            Request Headers
+                            <button class="btn-copy" data-target="requestHeaders">Copy</button>
+                        </h3>
+                        <pre id="requestHeaders"></pre>
+                    </div>
+                    <div class="detail-section">
+                        <h3>
+                            Request Body
+                            <button class="btn-copy" data-target="requestBody">Copy</button>
+                        </h3>
+                        <pre id="requestBody"></pre>
+                    </div>
+                    <div class="detail-section">
+                        <h3>
+                            Response Headers
+                            <button class="btn-copy" data-target="responseHeaders">Copy</button>
+                        </h3>
+                        <pre id="responseHeaders"></pre>
+                    </div>
+                    <div class="detail-section">
+                        <h3>
+                            Response Body
+                            <button class="btn-copy" data-target="responseBody">Copy</button>
+                        </h3>
+                        <pre id="responseBody"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <span id="requestCount">0 requests</span>
+    </footer>
+    
+    <script src="/static/app.js"></script>
+</body>
+</html>

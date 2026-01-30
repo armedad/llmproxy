@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Proxy - Help</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        .help-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .help-container h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .help-container .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+        
+        .help-container h2 {
+            font-size: 18px;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .help-container h3 {
+            font-size: 14px;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .help-container p {
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+        
+        .help-container code {
+            background: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+        }
+        
+        .help-container pre {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 16px;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .help-container ul, .help-container ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        
+        .help-container li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        
+        .help-container table {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+        
+        .help-container th {
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .help-container td, .help-container th {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent);
+            text-decoration: none;
+            margin-bottom: 24px;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .config-table code {
+            background: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="help-container">
+        <a href="/" class="back-link">← Back to Dashboard</a>
+        
+        <h1>LLM Proxy</h1>
+        <p class="subtitle">Local OpenAI API debugging proxy</p>
+        
+        <h2>What is LLM Proxy?</h2>
+        <p>
+            LLM Proxy sits between your apps and OpenAI's API, letting you observe and debug 
+            actual API calls. Every request and response is logged, so you can see exactly 
+            what prompts are being sent, how many tokens are used, and how long requests take.
+        </p>
+        
+        <h2>Quick Start</h2>
+        <ol>
+            <li>Start the proxy (it's already running if you're seeing this page)</li>
+            <li>Configure your app to use <code>http://localhost:8000</code> as the OpenAI base URL</li>
+            <li>Use your app normally - requests will flow through the proxy</li>
+            <li>Watch requests appear in the <a href="/">dashboard</a></li>
+        </ol>
+        
+        <h2>Configuring Apps</h2>
+        
+        <h3>Cursor</h3>
+        <p>Settings → Models → OpenAI Base URL → <code>http://localhost:8000</code></p>
+        
+        <h3>OpenAI Python SDK</h3>
+        <pre>from openai import OpenAI
+
+client = OpenAI(
+    base_url="http://localhost:8000/v1",
+    api_key="your-api-key"
+)</pre>
+        
+        <h3>OpenAI Node.js SDK</h3>
+        <pre>import OpenAI from 'openai';
+
+const openai = new OpenAI({
+    baseURL: 'http://localhost:8000/v1',
+    apiKey: 'your-api-key'
+});</pre>
+        
+        <h3>curl</h3>
+        <pre>curl http://localhost:8000/v1/chat/completions \
+  -H "Authorization: Bearer sk-your-key" \
+  -H "Content-Type: application/json" \
+  -d '{"model": "gpt-4o", "messages": [{"role": "user", "content": "Hello!"}]}'</pre>
+        
+        <h2>Web UI Features</h2>
+        <ul>
+            <li><strong>Request list</strong> - See all proxied requests with timestamp, method, path, model, status, duration, and token count</li>
+            <li><strong>Request detail</strong> - Click any request to see full headers, request body, and response body</li>
+            <li><strong>Filtering</strong> - Filter by endpoint, model, or status (success/error)</li>
+            <li><strong>Auto-refresh</strong> - Toggle to poll for new requests every 2 seconds</li>
+            <li><strong>Copy buttons</strong> - One-click copy of request/response data</li>
+        </ul>
+        
+        <h3>Keyboard Shortcuts</h3>
+        <table>
+            <tr><th>Key</th><th>Action</th></tr>
+            <tr><td><code>R</code></td><td>Refresh request list</td></tr>
+            <tr><td><code>Esc</code></td><td>Close detail panel</td></tr>
+        </table>
+        
+        <h2>Configuration</h2>
+        <p>Edit <code>config.json</code> to change settings:</p>
+        
+        <table class="config-table">
+            <tr><th>Option</th><th>Default</th><th>Description</th></tr>
+            <tr><td><code>port</code></td><td>8000</td><td>Local port for the proxy</td></tr>
+            <tr><td><code>openai_base_url</code></td><td>https://api.openai.com</td><td>Where to forward requests</td></tr>
+            <tr><td><code>api_key_override</code></td><td>null</td><td>Use this key instead of client's</td></tr>
+            <tr><td><code>log_dir</code></td><td>./logs</td><td>Where to store request logs</td></tr>
+            <tr><td><code>max_memory_requests</code></td><td>1000</td><td>Requests to keep in memory</td></tr>
+            <tr><td><code>log_request_bodies</code></td><td>true</td><td>Log request bodies to disk</td></tr>
+            <tr><td><code>log_response_bodies</code></td><td>true</td><td>Log response bodies to disk</td></tr>
+        </table>
+        
+        <h2>Logs</h2>
+        <p>
+            Request logs are saved to <code>logs/requests-YYYY-MM-DD.jsonl</code> in JSON Lines format 
+            (one JSON object per line). This makes them easy to process with tools like <code>jq</code>.
+        </p>
+        <pre># View today's logs
+cat logs/requests-$(date +%Y-%m-%d).jsonl | jq .
+
+# Count requests by model
+cat logs/*.jsonl | jq -r '.model' | sort | uniq -c</pre>
+        
+        <h2>Security Notes</h2>
+        <ul>
+            <li><strong>API keys are sanitized</strong> - Only the last 4 characters are shown in logs</li>
+            <li><strong>Binds to localhost only</strong> - The proxy only accepts connections from your machine</li>
+            <li><strong>No authentication</strong> - This is a local dev tool, not for production use</li>
+        </ul>
+        
+        <h2>Supported Endpoints</h2>
+        <p>The proxy forwards any <code>/v1/*</code> request to OpenAI, including:</p>
+        <ul>
+            <li><code>/v1/chat/completions</code> (streaming and non-streaming)</li>
+            <li><code>/v1/completions</code></li>
+            <li><code>/v1/embeddings</code></li>
+            <li><code>/v1/models</code></li>
+            <li>Any other OpenAI API endpoint</li>
+        </ul>
+        
+        <h2>Troubleshooting</h2>
+        
+        <h3>Port already in use</h3>
+        <pre># Mac/Linux
+lsof -ti:8000 | xargs kill -9
+
+# Windows
+netstat -ano | findstr :8000
+taskkill /PID &lt;pid&gt; /F</pre>
+        
+        <h3>App not connecting</h3>
+        <p>Make sure your app supports custom base URLs. Some apps hardcode <code>api.openai.com</code>.</p>
+        
+        <h3>Streaming not working</h3>
+        <p>Check that your app sends <code>"stream": true</code> in the request body. The proxy detects this and enables SSE passthrough.</p>
+        
+        <h2>Command Line</h2>
+        <pre># Mac/Linux
+./llmproxy.sh --help
+./llmproxy.sh --install
+./llmproxy.sh --port 9000
+
+# Windows
+llmproxy.bat --help
+llmproxy.bat --install
+llmproxy.bat --port 9000</pre>
+    </div>
+</body>
+</html>
