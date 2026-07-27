@@ -71,8 +71,8 @@ echo     3. Configure your app to use the proxy as the OpenAI base URL:
 echo        http://localhost:8000
 echo.
 echo CONFIGURING APPS:
-echo     Cursor:
-echo         Settings -^> Models -^> OpenAI Base URL -^> http://localhost:8000
+echo     OpenAI-compatible IDE or client:
+echo         Set the OpenAI base URL / API endpoint to http://localhost:8000
 echo.
 echo     OpenAI Python SDK:
 echo         client = OpenAI(base_url="http://localhost:8000/v1", api_key="...")

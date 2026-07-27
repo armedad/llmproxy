@@ -2,7 +2,7 @@
 
 ## What This Project Is
 
-A local proxy server that sits between apps (like Cursor) and OpenAI's API. It allows observation and debugging of actual API calls - seeing exact prompts, responses, token usage, and timing.
+A local proxy server that sits between OpenAI-compatible apps and OpenAI's API. It allows observation and debugging of actual API calls - seeing exact prompts, responses, token usage, and timing.
 
 **Key insight:** This is a developer debugging tool, not a production service. Optimize for visibility and simplicity over scalability.
 
@@ -93,8 +93,8 @@ curl http://localhost:8000/v1/chat/completions \
   -d '{"model": "gpt-4o-mini", "messages": [{"role": "user", "content": "Hi"}], "stream": true}'
 ```
 
-### Testing with Cursor:
-Configure Cursor's OpenAI base URL to `http://localhost:8000` and use normally.
+### Testing with an OpenAI-compatible client:
+Configure the client's OpenAI base URL to `http://localhost:8000` and use normally.
 
 ## Logging Standards
 

@@ -34,8 +34,8 @@ QUICK START:
        http://localhost:8000
 
 CONFIGURING APPS:
-    Cursor:
-        Settings → Models → OpenAI Base URL → http://localhost:8000
+    OpenAI-compatible IDE or client:
+        Set the OpenAI base URL / API endpoint to http://localhost:8000
 
     OpenAI Python SDK:
         client = OpenAI(base_url="http://localhost:8000/v1", api_key="...")

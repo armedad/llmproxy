@@ -7,7 +7,7 @@ Build a local proxy server that sits between apps and OpenAI's API, allowing obs
 ## Target Customer
 
 Me - a developer who wants to:
-- Understand how desktop apps (like Cursor) and local web apps communicate with OpenAI
+- Understand how desktop apps and local web apps communicate with OpenAI
 - See exactly what prompts are being sent
 - Monitor token usage and costs
 - Debug API errors and latency issues
@@ -22,7 +22,7 @@ Me - a developer who wants to:
 
 ## What I Believe
 
-- Many apps support custom OpenAI base URLs (Cursor does, most SDK-based apps do)
+- Many apps support custom OpenAI base URLs (most SDK-based apps and many IDEs do)
 - Streaming (SSE) is the default for most AI apps - must work from day 1
 - A local dev tool doesn't need auth, multi-user support, or cloud deployment
 - Simple list-based UI is enough to start - can add dashboards later
@@ -68,7 +68,7 @@ Me - a developer who wants to:
 |------|------------|
 | Streaming proxy adds latency | Build minimal streaming proxy first, measure overhead |
 | SSE reassembly is complex | Spike on chunk parsing before full implementation |
-| Apps might not work with custom base URL | Test with Cursor early in development |
+| Apps might not work with custom base URL | Test with an OpenAI-compatible client early in development |
 | Disk logging format is awkward | Start with JSONL, iterate based on actual usage |
 
 ---
@@ -286,7 +286,7 @@ That's it. No ORM, no database, no frontend framework.
 
 ## Testing Approach
 
-- **Manual testing with Cursor**: Primary validation - configure Cursor to use proxy, verify normal operation
+- **Manual testing with an OpenAI-compatible client**: Primary validation - configure the client to use the proxy, verify normal operation
 - **Unit tests**: Request parsing, SSE chunk reassembly, log formatting
 - **Integration test**: Script that makes sample requests through proxy, verifies logging
 - **Self-sufficiency**: Proxy should log its own errors clearly for debugging

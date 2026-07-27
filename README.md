@@ -23,9 +23,9 @@ Open **http://localhost:8000** for the web UI.
 
 Point your app's OpenAI base URL to `http://localhost:8000` instead of `https://api.openai.com`.
 
-### Cursor
+### OpenAI-compatible IDE or client
 
-Settings → Models → OpenAI Base URL → `http://localhost:8000`
+In your IDE or client settings, set the OpenAI base URL (or API endpoint) to `http://localhost:8000`. Many tools expose this under Models, API, or Provider settings.
 
 ### OpenAI Python SDK
 

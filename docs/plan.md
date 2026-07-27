@@ -354,7 +354,7 @@ Reference the detailed spec in `opportunity-assessment.md` for architecture and 
 1. Update README with:
    - Quick start instructions
    - Configuration options
-   - How to configure Cursor to use the proxy
+   - How to configure an OpenAI-compatible client to use the proxy
    - Screenshots of UI (optional)
 2. Add helpful startup message showing URL to open
 3. Handle graceful shutdown (Ctrl+C)
@@ -368,4 +368,4 @@ Reference the detailed spec in `opportunity-assessment.md` for architecture and 
 1. Follow README instructions from scratch
 2. Verify proxy starts and works
 3. Verify Ctrl+C shuts down cleanly
-4. Configure Cursor to use proxy, verify it works normally
+4. Configure an OpenAI-compatible client to use the proxy, verify it works normally
